@@ -3,7 +3,7 @@ import { CreateSongDto } from './dto/create-song.dto';
 import { UpdateSongDto } from './dto/update-song.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Song } from './entities/song.entity';
+import { Song } from './song.entity';
 import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { query } from 'express';
 import { Artist } from 'src/artists/artist.entity';
@@ -43,7 +43,7 @@ export class SongsService {
 
   async update(id: number, updateSongDto: UpdateSongDto): Promise<Object> {
     const song = await this.findOne(id);
-    // this.songsRepository.merge(song, updateSongDto);
+    this.songsRepository.merge(song, updateSongDto);
     const updateSong = await this.songsRepository.save(song);
     return {
       message: 'updated successfully',

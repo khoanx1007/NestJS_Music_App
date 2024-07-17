@@ -1,4 +1,4 @@
-import { Song } from 'src/songs/entities/song.entity';
+import { Song } from 'src/songs/song.entity';
 import { User } from 'src/users/user.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 

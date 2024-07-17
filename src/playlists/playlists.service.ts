@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Song } from 'src/songs/entities/song.entity';
+import { Song } from 'src/songs/song.entity';
 import { Repository } from 'typeorm';
 import Playlist from './playlist.entity';
 import { User } from 'src/users/user.entity';

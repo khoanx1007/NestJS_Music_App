@@ -5,27 +5,28 @@ import { SongsModule } from './songs/songs.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { SongsController } from './songs/songs.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PlaylistsController } from './playlists/playlists.controller';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ArtistsModule } from './artists/artists.module';
+import { dataSourceOptions } from 'db/data-source';
+import { SeedModule } from './seed/seed.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from 'config/configuration';
 
 @Module({
   imports: [
-    SongsModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'music_app',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
     }),
+    TypeOrmModule.forRoot(dataSourceOptions),
+    SongsModule,
     PlaylistsModule,
     AuthModule,
     UsersModule,
+    ArtistsModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
