@@ -1,9 +1,12 @@
 export default () => ({
+  NODE_ENV: process.env.NODE_ENV,
   port: parseInt(process.env.PORT, 10),
-  secret: process.env.SECRET_KEY,
-  dbHost: process.env.DB_HOST,
-  dbPort: parseInt(process.env.DB_PORT),
-  username: process.env.USERNAME,
-  password: process.env.PASSWORD,
-  dbName: process.env.DB_NAME,
+  secret_key: process.env.SECRET_KEY,
+  database: {
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    name: process.env.DB_NAME,
+  }
 });

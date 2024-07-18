@@ -14,20 +14,14 @@ export class UsersService {
     const salt = await bcrypt.genSalt();
     createUserDto.password = await bcrypt.hash(createUserDto.password, salt);
     const user = this.usersRepository.create({ ...createUserDto, apiKey: uuid4() });
-    try {
-      await this.usersRepository.save(user);
-      delete user.password;
-      return {
-        message: "User created",
-        data: user,
-        status: HttpStatus.CREATED,
-      }
-    } catch (error) {
-      throw new HttpException("Email already exists", HttpStatus.BAD_REQUEST);
+    await this.usersRepository.save(user);
+    delete user.password;
+    return {
+      message: "User created",
+      data: user,
+      status: HttpStatus.CREATED,
     }
-
   }
-
   async updateSecretKey(id: number, twoFASecret: string) {
     return this.usersRepository.update({ id }, { twoFASecret, enable2FA: true });
   }

@@ -6,16 +6,22 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt-strategy';
 import { ArtistsModule } from 'src/artists/artists.module';
 import { ApiKeyStragegy } from './apikey-strategy';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     UsersModule,
     ArtistsModule,
-    JwtModule.register({
-      secret: 'mySecretKey',
-      signOptions: {
-        expiresIn: '2h'
+    JwtModule.registerAsync({
+      useFactory: (configService: ConfigService) => {
+        return {
+          secret: configService.get<string>('secret_key'),
+          signOptions: {
+            expiresIn: '2h'
+          },
+        };
       },
+      inject: [ConfigService]
     }),
   ],
   providers: [AuthService, JwtStrategy, ApiKeyStragegy],
