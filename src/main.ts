@@ -10,7 +10,7 @@ async function bootstrap() {
   // const seedService = app.get(SeedService);
   // await seedService.seed();
 
-  const config = new DocumentBuilder() //1
+  const config = new DocumentBuilder()
     .setTitle('Music App')
     .setDescription('The Music App Api documentation')
     .setVersion('1.0')
@@ -21,7 +21,7 @@ async function bootstrap() {
       name: 'JWT',
       description: 'Enter JWT token',
       in: 'header',
-    })
+    }, 'JWT-auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
